@@ -150,6 +150,7 @@ Transform:
   m_Children:
   - {fileID: 845138539}
   - {fileID: 1297331470}
+  - {fileID: 677065920}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -296,6 +297,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &677065919
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 677065920}
+  - component: {fileID: 677065921}
+  m_Layer: 0
+  m_Name: Respawn BlueSnail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &677065920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677065919}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.34, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 418380155}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &677065921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677065919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3659024a9b11e74e81294edbb339de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RespawnObject: BlueSnail
+  obj_Respawn: {fileID: 0}
+  RespawnTime: 2
+  isRespawn: 0
 --- !u!1 &831055181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,6 +1520,50 @@ MonoBehaviour:
   obj_Respawn: {fileID: 0}
   RespawnTime: 3
   isRespawn: 0
+--- !u!1 &1467390166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1467390167}
+  - component: {fileID: 1467390168}
+  m_Layer: 0
+  m_Name: Gun Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1467390167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467390166}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.7, y: -1.86, z: -6.96334}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1527648855}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1467390168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467390166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5cdd65916a6d204093b1776c34b46cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerRespawn: {fileID: 845138540}
 --- !u!1 &1527648854
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,6 +1593,7 @@ Transform:
   m_Children:
   - {fileID: 1665579405}
   - {fileID: 1609222502}
+  - {fileID: 1467390167}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1514,8 +1607,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1609222502}
   - component: {fileID: 1609222503}
+  - component: {fileID: 1609222504}
   m_Layer: 0
-  m_Name: MonsterRespawnManager
+  m_Name: Monster Respawn Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1549,6 +1643,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MonsterName: Opossum
   MonsterRespawn: {fileID: 1297331471}
+  PlayerRespawn: {fileID: 845138540}
+--- !u!114 &1609222504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609222501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f01a47c7a42b29498af9d7df9bd5c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MonsterName: BlueSnail
+  MonsterRespawn: {fileID: 677065921}
   PlayerRespawn: {fileID: 845138540}
 --- !u!1 &1665579404
 GameObject:

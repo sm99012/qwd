@@ -5,11 +5,13 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public GameObject User; //Gun.gameObject 를 사용하는 주체(Player, NPC, Monster)
-    public GameObject Bullet; //Gun.gameObject 가 사용할 총알
+    public GameObject Bullet; //Gun.gameObject 가 사용할 총알. PlayerEquip에서 가져오자
     public string Name; //이 스크립트를 필요로하는 총의 이름
 
     public string User_Name;
     public string Bullet_Name;
+
+    public int GunDamage; //총 자체 공격력.
 
     public float ShotSpeed; //발사속도
     public int HaveBullet; //총알 보유 갯수. 0 이되면 사격불가능
@@ -24,11 +26,13 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-        User_Name = User.name; //리스폰시 Player(Clone) 라고 되기때문에 초기이름으로한다.
-        Bullet_Name = Bullet.name; //총알발사할때 프리팹으로 총알을 불러오기위해
-        isShot = true;
-        isReload = false;
-        ShotCount = 0;
+        if (User != null)
+        {
+            User_Name = User.name; //리스폰시 Player(Clone) 라고 되기때문에 초기이름으로한다.
+            isShot = true;
+            isReload = false;
+            ShotCount = 0;
+        }
     }
 
     
@@ -39,39 +43,47 @@ public class Gun : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (isShot == true && isReload == false)
+        
+        if (User != null)
         {
-            if (Input.GetKey(KeyCode.X))
+            PlayerEquip e = User.gameObject.GetComponent<PlayerEquip>();
+            this.Bullet = e.Bullet;
+            Bullet_Name = Bullet.name; //총알발사할때 프리팹으로 총알을 불러오기위해
+
+            if (isShot == true && isReload == false)
             {
-                if (HaveBullet > 0)
+                if (Input.GetKey(KeyCode.X))
                 {
-                    PlayerMove p = User.gameObject.GetComponent<PlayerMove>();
-                    if (p.isRight == true && p.isLeft == false)
+                    if (HaveBullet > 0)
                     {
-                        StartCoroutine(ProcessShot(Vector3.right));
+                        PlayerMove p = User.gameObject.GetComponent<PlayerMove>();
+                        if (p.isRight == true && p.isLeft == false)
+                        {
+                            StartCoroutine(ProcessShot(Vector3.right));
+                        }
+                        else if (p.isRight == false && p.isLeft == true)
+                        {
+                            StartCoroutine(ProcessShot(Vector3.left));
+                        }
+                        ShotCount++;
+                        HaveBullet--;
                     }
-                    else if (p.isRight == false && p.isLeft == true)
+                    if (HaveBullet == 1)
                     {
-                        StartCoroutine(ProcessShot(Vector3.left));
+                        Debug.Log("보유한 총알이 부족합니다.");
                     }
-                    ShotCount++;
-                    HaveBullet--;
-                }
-                if (HaveBullet == 1)
-                {
-                    Debug.Log("보유한 총알이 부족합니다.");
                 }
             }
-        }
-        if (ShotCount >= Count)
-        {
-            StartCoroutine(ProcessReload());
-        } //자동재장전
-        if (isReload == false)
-        {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (ShotCount >= Count)
             {
                 StartCoroutine(ProcessReload());
+            } //자동재장전
+            if (isReload == false)
+            {
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    StartCoroutine(ProcessReload());
+                }
             }
         }
     }
@@ -86,6 +98,8 @@ public class Gun : MonoBehaviour
         r.AddForce(vDir * ShotSpeed * Time.deltaTime);
         Bullet b = FireBullet.gameObject.GetComponent<Bullet>();
         b.Dist = this.Dist;
+        PlayerStatus p = User.GetComponent<PlayerStatus>();
+        b.TotalDamage = p.T_STR;
     }
 
     IEnumerator ProcessShot(Vector3 vDir)

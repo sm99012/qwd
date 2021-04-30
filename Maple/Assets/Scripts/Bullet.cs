@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float Dist; //총의 사거리설정
-    public int Damage; //Bullet 자체 데미지
+    public int BulletDamage; //Bullet 자체 데미지
     public int TotalDamage; //플레이어스탯, 무기공격력, 총알데미지가 합해진 값
     public float Back; //Bullet의 몬스터 넉백값
     Vector3 vStartPos;
@@ -20,8 +20,6 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         vPos = this.transform.position;
-
-        TotalDamage = this.Damage; // + 무기데미지 + 플레이어 스탯
     }
 
     private void FixedUpdate()
@@ -30,6 +28,16 @@ public class Bullet : MonoBehaviour
         if (Dist < fDist)
         {
             Destroy(this.gameObject);
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D c)
+    {
+        if (c.gameObject.tag == "Bottom") //총알이 바닥에 부딪혔을때 땅위에 총알을 떨군다.
+        {
+            Debug.Log("바닥");
+            Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>();
+            r.gravityScale = 1;
         }
     }
 }
