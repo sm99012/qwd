@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3515188698885368451}
   - component: {fileID: 3515188698885368460}
-  - component: {fileID: 3515188698885368449}
   - component: {fileID: 3515188698885368450}
-  - component: {fileID: 5654819894967477377}
+  - component: {fileID: 7420493747089846677}
   - component: {fileID: 1406615856975100416}
   - component: {fileID: 6571668689956047633}
+  - component: {fileID: 1402387288525905990}
   m_Layer: 9
   m_Name: BlueSnail
   m_TagString: Monster
@@ -30,8 +30,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3515188698885368461}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.424, y: -0.395, z: 0}
-  m_LocalScale: {x: 0.49080536, y: 0.49080536, z: 0.49080536}
+  m_LocalPosition: {x: -0.345, y: -0.384, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -86,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &3515188698885368449
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3515188698885368461}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0030888298, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.14146724
 --- !u!50 &3515188698885368450
 Rigidbody2D:
   serializedVersion: 4
@@ -123,18 +107,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5654819894967477377
-MonoBehaviour:
+--- !u!58 &7420493747089846677
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3515188698885368461}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1163bcd76521cb345a1de30b44b30b42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.011650547}
+  serializedVersion: 2
+  m_Radius: 0.14834945
 --- !u!114 &1406615856975100416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,19 +136,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  M_HP: 5
-  M_MP: 1
+  M_HP: 15
+  M_MP: 15
   HP: 0
   MP: 0
-  Lv: 1
-  EXP: 10
+  Lv: 2
+  EXP: 4
   STR: 3
   DEFENCE: 1
   P_Back: 3000
   M_Back: 500
   M_TotalBack: 0
   isPower: 0
-  idx: 1
+  idx: 0
 --- !u!114 &6571668689956047633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,3 +163,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPower: 0
   PowerTime: 0
+--- !u!114 &1402387288525905990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3515188698885368461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6f3eca2c4a41da4c90bd437bf13edea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RandomValue: 0
+  RandomTime: 0
+  Speed: 0.1
+  isMove: 0
+  isSlowMove: 0
+  isFastMove: 0
+  isRandomValue: 0
+  isRandomTime: 0
+  isRight: 0
+  isLeft: 0
+  isAttack: 0
+  vStartPos: {x: 0, y: 0, z: 0}
+  vConstantPos: {x: 0, y: 0, z: 0}
+  FindArea: {x: 0, y: 0, z: 0}
+  Target: {fileID: 0}
+  AttackTime: 10
+  Player: {fileID: 0}
+  HP: 0

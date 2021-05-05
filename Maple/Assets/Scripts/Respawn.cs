@@ -8,16 +8,25 @@ public class Respawn : MonoBehaviour
     public GameObject obj_Respawn; //리스폰할 대상.
     public float RespawnTime; //리스폰 대기시간
     public bool isRespawn; //true : 리스폰 가능
+    public int idx; //몹의 번호지정
 
     void Start()
     {
         isRespawn = false;
-        StartCoroutine(ProcessInitialRespawn());
+        InitialRespawn();
     }
 
     public void FixedUpdate()
     {
         obj_RespawnTarget();
+
+        if (obj_Respawn)
+        {
+            if (obj_Respawn.tag == "Monster")
+            {
+                Setidx();
+            }
+        }
     }
 
     public void obj_RespawnTarget()
@@ -28,9 +37,14 @@ public class Respawn : MonoBehaviour
         }
     }
 
-    IEnumerator ProcessInitialRespawn() //초기리스폰 시작과동시에 리스폰
+    public void Setidx()
     {
-        yield return new WaitForSeconds(0);
+        MonsterStatus m = obj_Respawn.GetComponent<MonsterStatus>();
+        m.idx = this.idx;
+    }
+
+    public void InitialRespawn() //초기리스폰 시작과동시에 리스폰
+    {
         GameObject Prefab_obj_Respawn = Resources.Load("Prefabs/" + RespawnObject) as GameObject;
         obj_Respawn = Instantiate(Prefab_obj_Respawn);
         obj_Respawn.transform.position = this.transform.position;

@@ -16,6 +16,8 @@ public class PlayerMove : MonoBehaviour
     public bool isRight;//플레이어가 오른쪽으로 이동했었음
     public bool isLeft;//플레이어가 왼쪽으로 이동했었음
     public bool isGetKeyLeftAlt;
+    public bool isRemoveVelocity; //n단점프후 얻는 가속도 제거
+    public bool isPutKey;
 
     public float Speed;
     public float JumpPower;
@@ -54,6 +56,11 @@ public class PlayerMove : MonoBehaviour
             isjump = false;
             JumpCountProgram = JumpCount; // JumpCountProgram 에 JumpCount 를 되돌려줘라.
             //Debug.Log(c.gameObject + "Enter Bottom");
+            if (isPutKey == false)
+            {
+                //Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>();
+                //r.velocity = new Vector3(0, 0, 0);
+            }
         }
     }
 
@@ -76,16 +83,30 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D c)
+    private void OnTriggerStay2D(Collider2D c)
     {
         if (c.gameObject.tag == "Ladder")//사다리무빙
         {
-            isGround = false;
-            isLadder = true;
-            isjump = false;
-            GetComponent<Rigidbody2D>().gravityScale = 0;
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            //Debug.Log(c.gameObject + "Enter Ladder");
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                Debug.Log("Ladder");
+                isGround = false;
+                isLadder = true;
+                isjump = false;
+                isMove = true;
+                GetComponent<Rigidbody2D>().gravityScale = 0;
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                Debug.Log("Ladder");
+                isGround = false;
+                isLadder = true;
+                isjump = false;
+                isMove = true;
+                GetComponent<Rigidbody2D>().gravityScale = 0;
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
         }
     }
 
@@ -123,13 +144,28 @@ public class PlayerMove : MonoBehaviour
 
     public void Move()
     {
+        if (isRight == true && isLeft == false)
+        {
+            Transform t = this.gameObject.GetComponent<Transform>();
+            t.localScale = new Vector3(+1, 1, 1);
+        }
+        else if (isRight == false && isLeft == true)
+        {
+            //SpriteRenderer r = this.gameObject.GetComponent<SpriteRenderer>();
+            //r.flipX = true;
+            Transform t = this.gameObject.GetComponent<Transform>();
+            t.localScale = new Vector3(-1, 1, 1);
+        }
+
         if (Input.GetKey(KeyCode.LeftAlt) == true) //n단점프때문에 추가
         {
             isGetKeyLeftAlt = true;
+            isPutKey = true;
         }
         else
         {
             isGetKeyLeftAlt = false;
+            isPutKey = false;
         }
         if (isLadder == false && isMove == true)//평시
         {
@@ -138,14 +174,18 @@ public class PlayerMove : MonoBehaviour
                 transform.position += Vector3.right * Speed * Time.deltaTime;
                 isRight = true;
                 isLeft = false;
+                isPutKey = true;
             }
+            else isPutKey = false;
 
             if (Input.GetKey(KeyCode.LeftArrow)) //왼쪽이동
             {
                 transform.position += Vector3.left * Speed * Time.deltaTime;
                 isRight = false;
                 isLeft = true;
+                isPutKey = true;
             }
+            else isPutKey = false;
 
             if (JumpCountProgram > 0 && isGround == true && ispJump == false)//점프키 꾹누를때 점프 계속되는기능
             {
@@ -159,6 +199,7 @@ public class PlayerMove : MonoBehaviour
 
         if (isLadder == true && isMove == true)//사다리에있을시
         {
+            
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 transform.position += Vector3.right * Time.deltaTime;
@@ -179,24 +220,12 @@ public class PlayerMove : MonoBehaviour
                 transform.position += Vector3.down * Time.deltaTime;
                 //Debug.Log("Move Down");
             }
-            if (JumpCountProgram > 0) //사다리에서의 점프
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    GetComponent<Rigidbody2D>().gravityScale = 1;
-                    Rigidbody2D r = GetComponent<Rigidbody2D>();
-                    r.AddForce(Vector3.up * JumpPower * Time.deltaTime);
-                    //Debug.Log("JumpSucess");
-                    JumpCountProgram--;
-
-                }
-            }
         }//사다리무빙
     }
 
     public void nJump() //n단점프
     {
-        if (JumpCountProgram > 0 && Input.GetKeyDown(KeyCode.LeftAlt) && isGround == false)
+        if (JumpCountProgram > 0 && Input.GetKeyDown(KeyCode.LeftAlt) && isGround == false && isLadder == false)
         {
             Debug.Log("n단점프");
             if (isRight == true && isLeft == false)
@@ -207,6 +236,13 @@ public class PlayerMove : MonoBehaviour
                 Rigidbody2D r = GetComponent<Rigidbody2D>();
                 r.AddForce(rPos * JumpPower * 80f * Time.deltaTime);
                 r.AddForce(Vector3.up * JumpPower * 40f * Time.deltaTime);
+                if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    //Transform t = this.gameObject.GetComponent<Transform>();
+                    //t.localScale = new Vector3(+1, 1, 1);
+                    isRight = true;
+                    isLeft = false;
+                }
             }
             if (isRight == false && isLeft == true)
             {
@@ -216,6 +252,13 @@ public class PlayerMove : MonoBehaviour
                 Rigidbody2D r = GetComponent<Rigidbody2D>();
                 r.AddForce(rPos * JumpPower * 80f * Time.deltaTime);
                 r.AddForce(Vector3.up * JumpPower * 40f * Time.deltaTime);
+                if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    //Transform t = this.gameObject.GetComponent<Transform>();
+                    //t.localScale = new Vector3(-1, 1, 1);
+                    isRight = false;
+                    isLeft = true;
+                }
             }
         }
     }

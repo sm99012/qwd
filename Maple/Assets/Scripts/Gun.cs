@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    public int GunCode; //총들 고유의 총번
+
     public GameObject User; //Gun.gameObject 를 사용하는 주체(Player, NPC, Monster)
     public GameObject Bullet; //Gun.gameObject 가 사용할 총알. PlayerEquip에서 가져오자
     public string Name; //이 스크립트를 필요로하는 총의 이름
@@ -23,67 +25,80 @@ public class Gun : MonoBehaviour
 
     public bool isShot; //true : 발사가능
     public bool isReload; //true : 장전중
+    public bool isUse; //플레이어가 총을 사용하지않을때는 장전할수 없다
+                       //true 일때만 사용가능.
 
     void Start()
     {
+        this.gameObject.SetActive(false);
+        isShot = true;
+        isUse = false;
         if (User != null)
         {
             User_Name = User.name; //리스폰시 Player(Clone) 라고 되기때문에 초기이름으로한다.
-            isShot = true;
             isReload = false;
             ShotCount = 0;
         }
     }
 
-    
+
     void Update()
     {
-        
+        UseState();
+
+        if (isUse == true) //스탑코루틴..
+        {
+            this.gameObject.SetActive(true);
+        }
+        if (isUse == false)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     public void FixedUpdate()
     {
-        
         if (User != null)
         {
             PlayerEquip e = User.gameObject.GetComponent<PlayerEquip>();
             this.Bullet = e.Bullet;
             Bullet_Name = Bullet.name; //총알발사할때 프리팹으로 총알을 불러오기위해
+        }
+       
+    }
 
-            if (isShot == true && isReload == false)
+    public void Shot()
+    {
+        if (isShot == true && isReload == false)
+        {
+            if (HaveBullet > 0)
             {
-                if (Input.GetKey(KeyCode.X))
+                PlayerMove p = User.gameObject.GetComponent<PlayerMove>();
+                if (p.isRight == true && p.isLeft == false)
                 {
-                    if (HaveBullet > 0)
-                    {
-                        PlayerMove p = User.gameObject.GetComponent<PlayerMove>();
-                        if (p.isRight == true && p.isLeft == false)
-                        {
-                            StartCoroutine(ProcessShot(Vector3.right));
-                        }
-                        else if (p.isRight == false && p.isLeft == true)
-                        {
-                            StartCoroutine(ProcessShot(Vector3.left));
-                        }
-                        ShotCount++;
-                        HaveBullet--;
-                    }
-                    if (HaveBullet == 1)
-                    {
-                        Debug.Log("보유한 총알이 부족합니다.");
-                    }
+                    StartCoroutine(ProcessShot(Vector3.right));
                 }
+                else if (p.isRight == false && p.isLeft == true)
+                {
+                    StartCoroutine(ProcessShot(Vector3.left));
+                }
+                ShotCount++;
+                HaveBullet--;
             }
-            if (ShotCount >= Count)
+            if (HaveBullet == 1)
+            {
+                Debug.Log("보유한 총알이 부족합니다.");
+            }
+        }
+        if (ShotCount >= Count)
+        {
+            StartCoroutine(ProcessReload());
+        } //자동재장전
+        if (isReload == false)
+        {
+            if (Input.GetKeyDown(KeyCode.C))
             {
                 StartCoroutine(ProcessReload());
-            } //자동재장전
-            if (isReload == false)
-            {
-                if (Input.GetKeyDown(KeyCode.C))
-                {
-                    StartCoroutine(ProcessReload());
-                }
             }
         }
     }
@@ -106,18 +121,47 @@ public class Gun : MonoBehaviour
     {
         isShot = false;
         PasteBullet(vDir);
-        Debug.Log("R.Shot");
         yield return new WaitForSeconds(ShotTerm);
         isShot = true;
     } //발사텀설정(공격속도)
 
+    public void R_Shot()
+    {
+        StartCoroutine(ProcessShot(Vector3.right));
+    }
+    public void L_Shot()
+    {
+        StartCoroutine(ProcessShot(Vector3.left));
+    }
+
     IEnumerator ProcessReload()
     {
-        isReload = true;
-        isShot = false;
-        yield return new WaitForSeconds(ReloadTime);
-        ShotCount = 0;
-        isReload = false;
-        isShot = true;
+        if (isUse == true)
+        {
+            isReload = true;
+            isShot = false;
+            yield return new WaitForSeconds(ReloadTime);
+            ShotCount = 0;
+            isReload = false;
+            isShot = true;
+        }
+    }
+
+    public void Reload()
+    {
+        StartCoroutine(ProcessReload());
+    }
+
+    public void UseState()
+    {
+        PlayerEquip Equip = User.gameObject.GetComponent<PlayerEquip>();
+        if (Equip.Weapon_Gun == this.gameObject)
+        {
+            isUse = true;
+        }
+        else
+        {
+            isUse = false;
+        }
     }
 }

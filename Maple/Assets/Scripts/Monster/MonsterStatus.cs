@@ -70,6 +70,11 @@ public class MonsterStatus : MonoBehaviour
         {
             PlayerSuper PlayerSuper = c.gameObject.GetComponent<PlayerSuper>();
             PlayerStatus PlayerStatus = c.gameObject.GetComponent<PlayerStatus>();
+            PlayerEquip PlayerEquip = c.gameObject.GetComponent<PlayerEquip>();
+            GameObject Weapon = PlayerEquip.Weapon_Gun;
+            Gun g = Weapon.GetComponent<Gun>();
+            PlayerSuper WeaponSuper = g.GetComponent<PlayerSuper>();
+            WeaponSuper.PowerTime = PlayerSuper.PowerTime;
             if (c.gameObject.tag == "Player" && PlayerSuper.isPower == false)
             {
                 Hit(PlayerStatus);
@@ -78,6 +83,7 @@ public class MonsterStatus : MonoBehaviour
                 {
                     P_KnockBack(c.gameObject, this.gameObject);
                     PlayerSuper.P_Power();
+                    WeaponSuper.P_Power();
                 }
                 else return;
             }
@@ -120,15 +126,15 @@ public class MonsterStatus : MonoBehaviour
         else return false;
     } //몬스터죽음
 
-    public void OnGUI()
-    {
-        GUI.Box(new Rect(150 + 150 * idx, 0, 150, 20), this.gameObject.name);
-        GUI.Box(new Rect(150 + 150 * idx, 20, 150, 20), "Lv/Exp : " + Lv + "/" + EXP);
-        GUI.Box(new Rect(150 + 150 * idx, 40, 150, 20), "M_HP/HP : " + M_HP + "/" + HP);
-        GUI.Box(new Rect(150 + 150 * idx, 60, 150, 20), "M_MP/MP : " + M_MP + "/" + MP);
-        GUI.Box(new Rect(150 + 150 * idx, 80, 150, 20), "Str : " + STR);
-        GUI.Box(new Rect(150 + 150 * idx, 100, 150, 20), "DEFENCE : " + DEFENCE);
-    } //임시 GUI
+    //public void OnGUI()
+    //{
+    //    GUI.Box(new Rect(150 + 150 * idx, 0, 150, 20), this.gameObject.name);
+    //    GUI.Box(new Rect(150 + 150 * idx, 20, 150, 20), "Lv/Exp : " + Lv + "/" + EXP);
+    //    GUI.Box(new Rect(150 + 150 * idx, 40, 150, 20), "M_HP/HP : " + M_HP + "/" + HP);
+    //    GUI.Box(new Rect(150 + 150 * idx, 60, 150, 20), "M_MP/MP : " + M_MP + "/" + MP);
+    //    GUI.Box(new Rect(150 + 150 * idx, 80, 150, 20), "Str : " + STR);
+    //    GUI.Box(new Rect(150 + 150 * idx, 100, 150, 20), "DEFENCE : " + DEFENCE);
+    //} //임시 GUI
 
     public void OnTriggerEnter2D(Collider2D c)
     {

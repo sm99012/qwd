@@ -7,6 +7,9 @@ TagManager:
   - Bottom
   - Monster
   - Bullet
+  - Wall
+  - P_Wall
+  - Ladder
   layers:
   - Default
   - TransparentFX
@@ -18,8 +21,8 @@ TagManager:
   - 
   - Player
   - Monster
-  - 
-  - 
+  - Wall
+  - P_Wall
   - 
   - 
   - 

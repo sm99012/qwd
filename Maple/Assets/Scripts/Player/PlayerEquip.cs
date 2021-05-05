@@ -11,16 +11,15 @@ public class PlayerEquip : MonoBehaviour //플레이어의 착용장비.
                                     //무기는 하나만.
     public string string_Weapon; //착용한무기의 종류
 
-
     void Start()
     {
-        
+
     }
 
-    
+
     void Update()
     {
-        if (Weapon_Gun != null && Weapon_Knife ==null)
+        if (Weapon_Gun != null && Weapon_Knife == null)
         {
             string_Weapon = "Weapon_Gun";
         }
@@ -28,12 +27,16 @@ public class PlayerEquip : MonoBehaviour //플레이어의 착용장비.
         {
             string_Weapon = "Weapon_Knife";
         }
+    }
+
+    public void FixedUpdate()
+    {
         Use();
     }
 
     public void Use() //사용되는 Gun 오브젝트의 Gun스크립트에 User를 설정해줌.
     {
-        if (Weapon_Gun != null && Weapon_Knife == null)
+        if (string_Weapon == "Weapon_Gun")
         {
             Gun g = Weapon_Gun.GetComponent<Gun>();
             g.User = this.gameObject;
