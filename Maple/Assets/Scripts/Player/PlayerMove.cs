@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour
 
     public bool isGround;
     public bool isLadder;
+    public bool isLadderStay;
     public bool isjump;
     public bool ispJump; //점프가 중첩되는버그를 없애기위해서
     public bool isKey;
@@ -18,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     public bool isGetKeyLeftAlt;
     public bool isRemoveVelocity; //n단점프후 얻는 가속도 제거
     public bool isPutKey;
+    public bool isEnding;
 
     public float Speed;
     public float JumpPower;
@@ -28,6 +30,7 @@ public class PlayerMove : MonoBehaviour
     {
         isGround = true;
         isLadder = false;
+        isLadderStay = false;
         isjump = false;
         ispJump = false;
         isMove = true;
@@ -36,11 +39,17 @@ public class PlayerMove : MonoBehaviour
         isRight = true;
         isLeft = false;
         isKey = false;
+
+        isEnding = false;
     }
 
     void Update()
     {
         nJump();
+        if (Speed < 0)
+        {
+            Speed = 0.1f;
+        }
     }
 
     public void FixedUpdate()
@@ -62,6 +71,23 @@ public class PlayerMove : MonoBehaviour
                 //r.velocity = new Vector3(0, 0, 0);
             }
         }
+        if (c.gameObject.tag == "Bottom to Ladder")//땅에데였을때
+        {
+            isGround = true;
+            isjump = false;
+            JumpCountProgram = JumpCount; // JumpCountProgram 에 JumpCount 를 되돌려줘라.
+            //Debug.Log(c.gameObject + "Enter Bottom");
+            if (isPutKey == false)
+            {
+                //Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>();
+                //r.velocity = new Vector3(0, 0, 0);
+            }
+            //if (Input.GetKeyDown(KeyCode.DownArrow))
+            //{
+            //    this.gameObject.transform.position += new Vector3(0, 1f);
+            //}
+            //Debug.Log("Enter");
+        }
     }
 
     private void OnCollisionStay2D(Collision2D c)
@@ -72,11 +98,26 @@ public class PlayerMove : MonoBehaviour
             isKey = false;
             isMove = true;
         }
+        if (c.gameObject.tag == "Bottom to Ladder")
+        {
+            isGround = true;
+            isKey = false;
+            isMove = true;
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                this.gameObject.transform.position -= new Vector3(0, 0.1f);
+            }
+        }
     }
 
     private void OnCollisionExit2D(Collision2D c)
     {
         if (c.gameObject.tag == "Bottom")
+        {
+            isGround = false;
+            //Debug.Log(c.gameObject + "Exit Bottom");
+        }
+        if (c.gameObject.tag == "Bottom to Ladder")
         {
             isGround = false;
             //Debug.Log(c.gameObject + "Exit Bottom");
@@ -92,6 +133,7 @@ public class PlayerMove : MonoBehaviour
                 Debug.Log("Ladder");
                 isGround = false;
                 isLadder = true;
+                isLadderStay = true;
                 isjump = false;
                 isMove = true;
                 GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -102,6 +144,7 @@ public class PlayerMove : MonoBehaviour
                 Debug.Log("Ladder");
                 isGround = false;
                 isLadder = true;
+                isLadderStay = true;
                 isjump = false;
                 isMove = true;
                 GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -110,12 +153,22 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D c)
+    {
+        if (c.gameObject.name == "House") //집에 들어왔을때 엔딩보기
+        {
+            isEnding = true;
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D c)
     {
-        if (c.gameObject.tag == "Ladder")
+        if (c.gameObject.tag == "Ladder" && isLadderStay == true) //+ 
         {
-            isGround = true;
+            Debug.Log("??");
+            //isGround = true;
             isLadder = false;
+            isLadderStay = false;
             isjump = true;
             GetComponent<Rigidbody2D>().gravityScale = 1;
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;

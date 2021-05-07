@@ -29,22 +29,16 @@ public class PlayerSuper : MonoBehaviour //플레이어 무적 스크립트
     {
         SpriteRenderer s = this.GetComponent<SpriteRenderer>();
         Color color = s.color;
-        color.a = 0;
-        s.color = color;
+        s.color = new Color(0.5f, 0.5f, 0.5f);
         yield return new WaitForSeconds(0.1f);
-        color.a = 1;
-        s.color = color;
+        s.color = new Color(1f, 1f, 1f);
         yield return new WaitForSeconds(0.2f);
-        color.a = 0;
-        s.color = color;
+        s.color = new Color(0.5f, 0.5f, 0.5f);
         yield return new WaitForSeconds(0.1f);
-        color.a = 1;
-        s.color = color;
+        s.color = new Color(1f, 1f, 1f);
         yield return new WaitForSeconds(0.2f);
-        color.a = 0;
-        s.color = color;
+        s.color = new Color(0.5f, 0.5f, 0.5f);
         yield return new WaitForSeconds(0.1f);
-        color.a = 1;
-        s.color = color;
+        s.color = new Color(1f, 1f, 1f);
     }
 }

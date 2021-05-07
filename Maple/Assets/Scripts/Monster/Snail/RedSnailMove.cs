@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RedSnailMove : MonoBehaviour //선공몹, 맞으면 때리러옴
+public class RedSnailMove : MonoBehaviour //딱히 공격안하는몹.
 {
     public int RandomValue;
     public int RandomTime; //이동이 지속될 시간.
+    public int AttackedCount; //몬스터가 맞은 횟수
 
     public float Speed; //몬스터 속도
 
@@ -16,18 +17,15 @@ public class RedSnailMove : MonoBehaviour //선공몹, 맞으면 때리러옴
     public bool isRandomTime; //true 일때만 랜덤값지정가능
     public bool isRight; //오브젝트가 우측을 바라봄
     public bool isLeft; //오브젝트가 좌측을 바라봄
-    public bool isAttack; //오브젝트가 선공모드
+    public bool isTimeChecked;
 
     public Vector3 vStartPos;
     public Vector3 vConstantPos;
     public Vector3 FindArea;
 
     public GameObject Target; //Target이 있다면 추적, 없으면 추적안함
-    public float AttackTime; //공격당했을때 추적하는시간.
-
+    public int AttackTime;
     public GameObject Player;
-
-    public int HP;
     public void Start()
     {
         isMove = true;
@@ -37,21 +35,15 @@ public class RedSnailMove : MonoBehaviour //선공몹, 맞으면 때리러옴
         isRandomTime = true;
         isRight = true;
         isLeft = false;
-        isAttack = false;
+        isTimeChecked = false;
 
         vStartPos = this.gameObject.transform.position;
-
-        MonsterStatus m = this.gameObject.GetComponent<MonsterStatus>(); //맞으면 일정시간동안 따라가는기능을
-                                                                         //구현하기위해
-        HP = m.HP;
-        Player = m.Player;
     }
 
     public void Update()
     {
         vConstantPos = this.transform.position;
-        Find();
-        if (Target == null)
+        if (Target == null && AttackedCount == 0 && isTimeChecked == false)
         {
             if (isRandomValue == true)
             {
@@ -62,22 +54,32 @@ public class RedSnailMove : MonoBehaviour //선공몹, 맞으면 때리러옴
                 StartCoroutine(ProcessSetRandomTime());
             }
             Patrol();
-            SetDirection();
+        }
+        if (Target != null)
+        {
+            RandomTime = 0;
+            RandomValue = 0;
+            StopCoroutine(ProcessSetRandomValue());
+            StopCoroutine(ProcessSetRandomTime());
+            AttackMove();
         }
 
         MonsterStatus m = this.gameObject.GetComponent<MonsterStatus>();
         Player = m.Player;
+        this.AttackedCount = m.AttackedCount; //참조 하는거다
     }
 
     private void FixedUpdate()
     {
-
+        Find();
+        Attack();
     }
 
     public void Patrol()
     {
         if (isMove == true)
         {
+            SetDirection();
             if (RandomValue == 0) //Stop
             {
                 this.transform.position += new Vector3(0, 0, 0);
@@ -102,12 +104,12 @@ public class RedSnailMove : MonoBehaviour //선공몹, 맞으면 때리러옴
         if (isRight == true && isLeft == false)
         {
             Transform t = this.gameObject.GetComponent<Transform>();
-            t.localScale = new Vector3(-0.75f, 0.75f, 0.75f);
+            t.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
         }
         else if (isRight == false && isLeft == true)
         {
             Transform t = this.gameObject.GetComponent<Transform>();
-            t.localScale = new Vector3(+0.75f, 0.75f, 0.75f);
+            t.localScale = new Vector3(+0.5f, 0.5f, 0.5f);
         }
     } //오브젝트 방향전환
 
@@ -125,71 +127,56 @@ public class RedSnailMove : MonoBehaviour //선공몹, 맞으면 때리러옴
         }
     }
 
-    public void Find() //몬스터의 탐지범위, 몬스터가 맞았을때
+    public void Find() //몬스터의 탐지범위
     {
         int nLayer = 1 << LayerMask.NameToLayer("Player");
         Collider2D c = Physics2D.OverlapBox(vConstantPos, FindArea, 0f, nLayer);
-        MonsterStatus mm = this.gameObject.GetComponent<MonsterStatus>();
+        MonsterStatus m = this.gameObject.GetComponent<MonsterStatus>();
 
-        if (HP != mm.HP && isAttack == false)
+        if (c) //탐지
         {
-            StartCoroutine(ProcessAttack(Player));
-        }
-        else if (HP != mm.HP && isAttack == true)
-        {
-            Vector3 vTargetPos = Player.gameObject.transform.position;
-            Vector3 vDist = vTargetPos - vConstantPos;
-            float vTargetPosX = vTargetPos.x;
-            float vConstantPosX = vConstantPos.x;
-            Vector3 vDir = vDist.normalized;
-            if (vTargetPosX >= vConstantPosX) //몹 우측이동
+            if (AttackedCount == 0 && isTimeChecked == false && c.gameObject.tag == "Player")
             {
-                Transform t = this.gameObject.GetComponent<Transform>();
-                t.localScale = new Vector3(-0.75f, 0.75f, 0.75f);
-            }
-            else
-            {
-                Transform t = this.gameObject.GetComponent<Transform>();
-                t.localScale = new Vector3(+0.75f, 0.75f, 0.75f);
-            }
-            Move(vDir);
-        }
-
-        if (c && isAttack == false)
-        {
-            if (c.gameObject.tag == "Player")
-            {
-                Vector3 vTargetPos = c.gameObject.transform.position;
-                Vector3 vDist = vTargetPos - vConstantPos;
-                float vTargetPosX = vTargetPos.x;
-                float vConstantPosX = vConstantPos.x;
-                Vector3 vDir = vDist.normalized;
-
                 Target = c.gameObject;
-                if (vTargetPosX >= vConstantPosX) //몹 우측이동
-                {
-                    Transform t = this.gameObject.GetComponent<Transform>();
-                    t.localScale = new Vector3(-0.75f, 0.75f, 0.75f);
-                }
-                else
-                {
-                    Transform t = this.gameObject.GetComponent<Transform>();
-                    t.localScale = new Vector3(+0.75f, 0.75f, 0.75f);
-                }
-
-                if (Target != null)
-                {
-                    Move(vDir);
-                }
             }
+        }
+        else if (AttackedCount == 0 && isTimeChecked == false)
+        {
+            Target = null;
+        }
+    }
+
+    public void Attack() //몬스터가 맞았을때
+    {
+        if (AttackedCount > 0 && isTimeChecked == false) //몬스터가 맞았을때 추적타임
+        {
+            Target = Player;
+            StartCoroutine(ProcessAttack());
+        }
+    }
+
+    public void AttackMove()
+    {
+        Vector3 vTargetPos = Player.gameObject.transform.position;
+        Vector3 vDist = vTargetPos - vConstantPos;
+        float vTargetPosX = vTargetPos.x;
+        float vConstantPosX = vConstantPos.x;
+        Vector3 vDir = vDist.normalized;
+        if (vTargetPosX >= vConstantPosX) //몹 우측이동
+        {
+            isRight = true;
+            isLeft = false;
+            SetDirection();
+            Move(vDir);
         }
         else
         {
-            if (isAttack == false)
-            {
-                Target = null;
-            }
+            isRight = false;
+            isLeft = true;
+            SetDirection();
+            Move(vDir);
         }
+
     }
 
     IEnumerator ProcessSetRandomValue()
@@ -223,16 +210,18 @@ public class RedSnailMove : MonoBehaviour //선공몹, 맞으면 때리러옴
         isFastMove = false;
     } //기본적인 달팽이의 무빙
 
-    IEnumerator ProcessAttack(GameObject obj) //플레이어 선공시 추적
+    IEnumerator ProcessAttack()
     {
-        Target = obj;
-        isAttack = true;
-        Debug.Log("선빵맞음");
+        isTimeChecked = true;
         yield return new WaitForSeconds(AttackTime);
         MonsterStatus m = this.gameObject.GetComponent<MonsterStatus>();
-        HP = m.HP;
-        Target = null;
-        isAttack = false;
+        m.AttackedCount--;
+        //if (m.AttackedCount == 0)
+        //{
+        //    Target = null;
+        //}
+        Debug.Log(m.AttackedCount);
+        isTimeChecked = false;
     }
 
     public void OnDrawGizmos()

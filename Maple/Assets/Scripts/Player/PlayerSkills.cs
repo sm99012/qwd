@@ -35,12 +35,14 @@ public class PlayerSkills : MonoBehaviour
             {
                 gun.Shot();
             }
-            if (Input.GetKeyDown(KeyCode.C) && gun.isReload == false)
+            if (Input.GetKey(KeyCode.C) && gun.isReload == false)
             {
+                Debug.Log("Reload");
                 gun.Reload();
             }
         }
     }
+
     //public void GunReload()
     //{
     //    PlayerEquip Equip = this.gameObject.GetComponent<PlayerEquip>();

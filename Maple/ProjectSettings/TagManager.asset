@@ -10,6 +10,7 @@ TagManager:
   - Wall
   - P_Wall
   - Ladder
+  - Bottom to Ladder
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Monster
   - Wall
   - P_Wall
-  - 
+  - House
   - 
   - 
   - 

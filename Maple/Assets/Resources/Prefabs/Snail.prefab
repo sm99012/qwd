@@ -158,10 +158,13 @@ MonoBehaviour:
   EXP: 3
   STR: 1
   DEFENCE: 1
+  AttackedCount: 0
   P_Back: 3000
   M_Back: 500
   M_TotalBack: 0
+  RememberTime: 0
   isPower: 0
+  isAttacked: 0
   idx: 0
 --- !u!114 &6833424702401833996
 MonoBehaviour:
@@ -177,6 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RandomValue: 0
   RandomTime: 0
+  AttackedCount: 0
   Speed: 0.1
   isMove: 0
   isSlowMove: 0
@@ -185,11 +189,10 @@ MonoBehaviour:
   isRandomTime: 0
   isRight: 0
   isLeft: 0
-  isAttack: 0
+  isTimeChecked: 0
   vStartPos: {x: 0, y: 0, z: 0}
   vConstantPos: {x: 0, y: 0, z: 0}
   FindArea: {x: 0, y: 0, z: 0}
   Target: {fileID: 0}
-  AttackTime: 3
+  AttackTime: 0
   Player: {fileID: 0}
-  HP: 0

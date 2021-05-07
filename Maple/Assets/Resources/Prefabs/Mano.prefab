@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 3197290275865480253}
   - component: {fileID: 3197290275865480254}
   - component: {fileID: 3197290275865480255}
-  - component: {fileID: 3197290275865480248}
   - component: {fileID: 380770512044477010}
+  - component: {fileID: 8125633399123124319}
+  - component: {fileID: 4176764151616142493}
   m_Layer: 9
   m_Name: Mano
   m_TagString: Monster
@@ -137,32 +138,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPower: 0
   PowerTime: 0
---- !u!114 &3197290275865480248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3197290275865480249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 851ec99b4a9eafa48bf5a0146e62fc4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  M_HP: 625
-  M_MP: 50
-  HP: 0
-  MP: 0
-  Lv: 0
-  EXP: 85
-  STR: 13
-  DEFENCE: 5
-  P_Back: 3000
-  M_Back: 250
-  M_TotalBack: 0
-  isPower: 0
-  idx: 0
 --- !u!114 &380770512044477010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,8 +152,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RandomValue: 0
   RandomTime: 0
-  RandomSkill: 0
-  RandomSkillCooltime: 0
+  AttackedCount: 0
+  RandomAttackTime: 0
+  RandomSkillValue: 0
   Speed: 0.2
   isMove: 0
   isSlowMove: 0
@@ -187,12 +163,54 @@ MonoBehaviour:
   isRandomTime: 0
   isRight: 0
   isLeft: 0
-  isAttack: 0
+  isTimeChecked: 0
   isUseSkill: 0
-  isSkillCool: 0
+  isAttackTime: 0
   vStartPos: {x: 0, y: 0, z: 0}
   vConstantPos: {x: 0, y: 0, z: 0}
   FindArea: {x: 0, y: 0, z: 0}
   Target: {fileID: 0}
-  AttackTime: 600
+  AttackTime: 30
   Player: {fileID: 0}
+--- !u!114 &8125633399123124319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3197290275865480249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b58e8b043e083d4c9d4778f030c723a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Monster: {fileID: 0}
+--- !u!114 &4176764151616142493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3197290275865480249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851ec99b4a9eafa48bf5a0146e62fc4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  M_HP: 225
+  M_MP: 50
+  HP: 0
+  MP: 0
+  Lv: 11
+  EXP: 85
+  STR: 13
+  DEFENCE: 5
+  AttackedCount: 0
+  P_Back: 45000
+  M_Back: 500
+  M_TotalBack: 0
+  RememberTime: 0
+  isPower: 0
+  isAttacked: 0
+  idx: 1

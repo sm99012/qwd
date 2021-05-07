@@ -15,11 +15,15 @@ public class MonsterStatus : MonoBehaviour
     public int EXP; //플레이어에게 주는 EXP
     public int STR;
     public int DEFENCE; //현재스탯
+    public int AttackedCount; //몬스터가 맞은 횟수
 
     public float P_Back; //플레이어 넉백 값
     public float M_Back; //몬스터자체 넉백 값
     public float M_TotalBack; //몬스터자체 넉백 값 + 무기의 넉백 값
+    public float RememberTime; //맞았을때 맞았다고 기억하는 시간
+
     public bool isPower; //몬스터 무적판단
+    public bool isAttacked; //몬스터가 맞았을때
 
     public int idx; //이 스테이터스가 무슨 오브젝트에 지정되는지.
 
@@ -28,6 +32,8 @@ public class MonsterStatus : MonoBehaviour
         isPower = false;
         HP = M_HP;
         MP = M_MP;
+        isAttacked = false;
+        AttackedCount = 0;
     }
 
     // Update is called once per frame
@@ -102,7 +108,7 @@ public class MonsterStatus : MonoBehaviour
         r.AddForce(vDir * P_Back * Time.deltaTime);
         Debug.Log("P_KnockBack");
     }
-    public void M_KnockBack(GameObject a, GameObject b) //플레이어 넉백
+    public void M_KnockBack(GameObject a, GameObject b) //몬스터 넉백
     {
         Vector3 vTargetPos = a.transform.position;
         Vector3 vPos = b.transform.position;
@@ -159,6 +165,7 @@ public class MonsterStatus : MonoBehaviour
                 {
                     M_KnockBack(this.gameObject, c.gameObject); //몬스터 넉백
                     Destroy(c.gameObject);
+                    AttackedCount++;
                 }
             }
         }
