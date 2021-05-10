@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public GameObject Weapon;
-    public GameObject Bullet;
-
     public bool isGround;
     public bool isLadder;
     public bool isLadderStay;
@@ -103,9 +100,9 @@ public class PlayerMove : MonoBehaviour
             isGround = true;
             isKey = false;
             isMove = true;
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.DownArrow))
             {
-                this.gameObject.transform.position -= new Vector3(0, 0.1f);
+                this.gameObject.transform.position -= new Vector3(0, 0.075f);
             }
         }
     }

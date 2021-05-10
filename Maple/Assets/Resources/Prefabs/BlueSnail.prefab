@@ -145,8 +145,8 @@ MonoBehaviour:
   STR: 3
   DEFENCE: 1
   AttackedCount: 0
-  P_Back: 3000
-  M_Back: 500
+  P_Back: 70
+  M_Back: 50
   M_TotalBack: 0
   RememberTime: 0
   isPower: 0

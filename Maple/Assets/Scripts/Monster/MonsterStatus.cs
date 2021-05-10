@@ -105,7 +105,7 @@ public class MonsterStatus : MonoBehaviour
         Vector3 vDir = vDist.normalized;
 
         Rigidbody2D r = a.GetComponent<Rigidbody2D>();
-        r.AddForce(vDir * P_Back * Time.deltaTime);
+        r.AddForce(vDir * P_Back);
         Debug.Log("P_KnockBack");
     }
     public void M_KnockBack(GameObject a, GameObject b) //몬스터 넉백
@@ -116,7 +116,7 @@ public class MonsterStatus : MonoBehaviour
         Vector3 vDir = vDist.normalized;
 
         Rigidbody2D r = a.GetComponent<Rigidbody2D>();
-        r.AddForce(vDir * M_TotalBack * Time.deltaTime);
+        r.AddForce(vDir * M_TotalBack);
         Debug.Log("P_KnockBack");
     }
 

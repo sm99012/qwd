@@ -6,6 +6,7 @@ public class PlayerStatus : MonoBehaviour
 {
     public int M_HP;
     public int M_MP; //스탯 최대치
+    public int M_EXP; //경험치통 최대치
 
     public int HP;
     public int MP;
@@ -27,12 +28,19 @@ public class PlayerStatus : MonoBehaviour
         isPower = false;
         HP = M_HP;
         MP = M_MP;
+        //BeforeHP = M_HP;
     }
 
     // Update is called once per frame
     void Update()
     {
         AddDamage();
+        //if (BeforeHP != HP) //맞았을때
+        //{
+        //    isAttacked = true;
+        //    isAttacked = false;
+        //    BeforeHP = HP;
+        //}
     }
 
     public void FixedUpdate()
@@ -44,28 +52,29 @@ public class PlayerStatus : MonoBehaviour
 
     public void LvUp()
     {
-        if (EXP >= 100)
+        if (EXP >= M_EXP)
         {
+            int ConstantEXP = EXP - M_EXP; //랩업하고 남은 EXP
             Lv++;
             M_HP += 5;
             M_MP += 5;
             STR += 1;
-
+            M_EXP = (int)(M_EXP * 1.25f);
             HP = M_HP; //Lv업 시 체력, 마나 풀.
             MP = M_MP;
-            if (Lv > 1 && (Lv - 1) % 5 == 0) //DEFENCE 는 5레벨당 1오름
-            {
-                DEFENCE += 1;
-            }
 
-            if (200 > EXP) //Lv 는 한번에 최대 1업까지밖에 불가능.
+            if (M_EXP * 2 > EXP) //랩업하고 남은 EXP를 랩업하고난 뒤의 경험치통에 적용.
             {
-                EXP -= 100;
+                EXP = ConstantEXP;
             }
-            if (EXP >= 200)
+            else if (M_EXP * 2 <= EXP) //Lv 는 한번에 최대 1업까지밖에 불가능.
             {
-                EXP = 99;
+                EXP = M_EXP - 1;
             }
+        }
+        if (Lv > 1 && (Lv - 1) % 5 == 0) //DEFENCE 는 5레벨당 1오름
+        {
+            DEFENCE += 1;
         }
     } //레벨업함수
 
@@ -87,7 +96,8 @@ public class PlayerStatus : MonoBehaviour
     {
         if (HP <= 0)
         {
-            Destroy(this.gameObject);
+            HP = 0;
+            StartCoroutine(ProcessDeath()); //GUI연동을위해 0.1초 딜레이.
             return true;
         }
         else return false;
@@ -155,6 +165,12 @@ public class PlayerStatus : MonoBehaviour
         yield return new WaitForSeconds(PowerTime);
         isPower = false;
     } //피격시무적
+
+    IEnumerator ProcessDeath()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Destroy(this.gameObject);
+    }
 
     private void OnGUI()
     {

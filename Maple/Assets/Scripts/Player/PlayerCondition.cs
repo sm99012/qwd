@@ -121,16 +121,16 @@ public class PlayerCondition : MonoBehaviour //버프, 디버프 관련 스크�
     {
         PlayerStatus PlayerStatus = this.gameObject.GetComponent<PlayerStatus>();
         PlayerMove PlayerMove = this.gameObject.GetComponent<PlayerMove>();
-        PlayerStatus.T_STR += AddStrong;
+        PlayerStatus.STR += AddStrong;
         yield return new WaitForSeconds(ContinueTime);
-        PlayerStatus.T_STR -= AddStrong;
+        PlayerStatus.STR -= AddStrong;
     }
     IEnumerator ProcessContinueCondition_Strong2(float AddStrong, int ContinueTime) //공격력*/디버프
     {
         PlayerStatus PlayerStatus = this.gameObject.GetComponent<PlayerStatus>();
         PlayerMove PlayerMove = this.gameObject.GetComponent<PlayerMove>();
-        PlayerStatus.T_STR = (int)(PlayerStatus.T_STR * AddStrong);
+        PlayerStatus.STR = (int)(PlayerStatus.STR * AddStrong);
         yield return new WaitForSeconds(ContinueTime);
-        PlayerStatus.T_STR = (int)(PlayerStatus.T_STR * 1/AddStrong);
+        PlayerStatus.STR = (int)(PlayerStatus.STR * 1/AddStrong);
     }
 }

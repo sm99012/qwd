@@ -27,10 +27,23 @@ public class ManoMove : MonoBehaviour //딱히 공격안하는몹.
     public Vector3 vStartPos;
     public Vector3 vConstantPos;
     public Vector3 FindArea;
+    Vector3 CallArea1 = new Vector3 (0.2f, 0, 0); //달팽이 소환 영역.
+    Vector3 CallArea2 = new Vector3(0.4f, 0, 0); //달팽이 소환 영역.
+    Vector3 CallArea3 = new Vector3(0.6f, 0, 0); //달팽이 소환 영역.
+    Vector3 CallArea4 = new Vector3(-0.2f, 0, 0); //달팽이 소환 영역.
+    Vector3 CallArea5 = new Vector3(-0.4f, 0, 0); //달팽이 소환 영역.
+    Vector3 CallArea6 = new Vector3(-0.6f, 0, 0); //달팽이 소환 영역.
 
     public GameObject Target; //Target이 있다면 추적, 없으면 추적안함
     public int AttackTime;
     public GameObject Player;
+
+    public SpawnSnailForManoSkill S1;
+    public SpawnSnailForManoSkill S2;
+    public SpawnSnailForManoSkill S3;
+    public SpawnSnailForManoSkill S4;
+    public SpawnSnailForManoSkill S5;
+    public SpawnSnailForManoSkill S6;
 
     int i = 0; //디버프 한번만 적용하기위해서.
     public void Start()
@@ -54,8 +67,10 @@ public class ManoMove : MonoBehaviour //딱히 공격안하는몹.
         vConstantPos = this.transform.position;
         Attack();
         
-        if (Target == null && AttackedCount == 0 && isTimeChecked == false)
+        if (Target == null)
         {
+            //AttackedCount = 0;
+            //isTimeChecked = false;
             RandomAttackTime = 0;
             RandomSkillValue = 0;
             StopCoroutine(ProcessSetRandomAttackTime());
@@ -176,7 +191,7 @@ public class ManoMove : MonoBehaviour //딱히 공격안하는몹.
         }
     }
 
-    public void UseSkill()
+    public void UseSkill() //마노 패턴
     {
         PlayerCondition P_Condition = Player.gameObject.GetComponent<PlayerCondition>();
         PlayerStatus s = Player.GetComponent<PlayerStatus>();
@@ -213,14 +228,53 @@ public class ManoMove : MonoBehaviour //딱히 공격안하는몹.
             {
                 i++;
                 M_Condition.GiveCondition3("Fast");
-                Debug.Log("몬스터 이동속도 1단계 버프");
+                Debug.Log("몬스터 이동속도 3단계 버프");
             }
             if (RandomSkillValue == 4)
             {
+                CallSnail();
                 i++;
                 Debug.Log("달팽이 소환");
             }
         }
+    }
+
+    public void CallSnail()
+    {
+        int RandomValue = Random.Range(1, 4);
+        if (RandomValue == 1)
+        {
+            S1.transform.position = this.transform.position + CallArea1;
+            S2.transform.position = this.transform.position + CallArea2;
+            S3.transform.position = this.transform.position + CallArea3;
+            S4.transform.position = this.transform.position + CallArea4;
+            S5.transform.position = this.transform.position + CallArea5;
+            S6.transform.position = this.transform.position + CallArea6;
+        }
+        else if (RandomValue == 2)
+        {
+            S1.transform.position = this.transform.position + CallArea2;
+            S2.transform.position = this.transform.position + CallArea3;
+            S3.transform.position = this.transform.position + CallArea4;
+            S4.transform.position = this.transform.position + CallArea5;
+            S5.transform.position = this.transform.position + CallArea6;
+            S6.transform.position = this.transform.position + CallArea1;
+        }
+        else if (RandomValue == 3)
+        {
+            S1.transform.position = this.transform.position + CallArea3;
+            S2.transform.position = this.transform.position + CallArea4;
+            S3.transform.position = this.transform.position + CallArea5;
+            S4.transform.position = this.transform.position + CallArea6;
+            S5.transform.position = this.transform.position + CallArea1;
+            S6.transform.position = this.transform.position + CallArea2;
+        }
+        S1.obj_RespawnTarget();
+        S2.obj_RespawnTarget();
+        S3.obj_RespawnTarget();
+        S4.obj_RespawnTarget();
+        S5.obj_RespawnTarget();
+        S6.obj_RespawnTarget();
     }
 
     public void AttackMove()
@@ -296,7 +350,6 @@ public class ManoMove : MonoBehaviour //딱히 공격안하는몹.
         isUseSkill = false;
         i--;
     }
-
     IEnumerator ProcessSetRandomAttackTime() //랜덤하게 스킬을 사용할 시간텀 지정
     {
         isAttackTime = true;
@@ -308,7 +361,13 @@ public class ManoMove : MonoBehaviour //딱히 공격안하는몹.
 
     public void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(this.gameObject.transform.position, FindArea);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireCube(this.gameObject.transform.position, CallArea);
+        //Gizmos.DrawWireSphere(S1.transform.position, 0.1f);
+        //Gizmos.DrawWireSphere(S2.transform.position, 0.1f);
+        //Gizmos.DrawWireSphere(S3.transform.position, 0.1f);
+        //Gizmos.DrawWireSphere(S4.transform.position, 0.1f);
+        //Gizmos.DrawWireSphere(S5.transform.position, 0.1f);
+        //Gizmos.DrawWireSphere(S6.transform.position, 0.1f);
     }
 }

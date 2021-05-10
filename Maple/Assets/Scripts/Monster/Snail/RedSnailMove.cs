@@ -26,6 +26,7 @@ public class RedSnailMove : MonoBehaviour //딱히 공격안하는몹.
     public GameObject Target; //Target이 있다면 추적, 없으면 추적안함
     public int AttackTime;
     public GameObject Player;
+
     public void Start()
     {
         isMove = true;
@@ -157,26 +158,28 @@ public class RedSnailMove : MonoBehaviour //딱히 공격안하는몹.
 
     public void AttackMove()
     {
-        Vector3 vTargetPos = Player.gameObject.transform.position;
-        Vector3 vDist = vTargetPos - vConstantPos;
-        float vTargetPosX = vTargetPos.x;
-        float vConstantPosX = vConstantPos.x;
-        Vector3 vDir = vDist.normalized;
-        if (vTargetPosX >= vConstantPosX) //몹 우측이동
+        if (Player != null)
         {
-            isRight = true;
-            isLeft = false;
-            SetDirection();
-            Move(vDir);
+            Vector3 vTargetPos = Player.gameObject.transform.position;
+            Vector3 vDist = vTargetPos - vConstantPos;
+            float vTargetPosX = vTargetPos.x;
+            float vConstantPosX = vConstantPos.x;
+            Vector3 vDir = vDist.normalized;
+            if (vTargetPosX >= vConstantPosX) //몹 우측이동
+            {
+                isRight = true;
+                isLeft = false;
+                SetDirection();
+                Move(vDir);
+            }
+            else
+            {
+                isRight = false;
+                isLeft = true;
+                SetDirection();
+                Move(vDir);
+            }
         }
-        else
-        {
-            isRight = false;
-            isLeft = true;
-            SetDirection();
-            Move(vDir);
-        }
-
     }
 
     IEnumerator ProcessSetRandomValue()

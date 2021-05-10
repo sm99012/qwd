@@ -6,7 +6,7 @@ public class MonsterRespawnManager : MonoBehaviour
 {
     public string MonsterName; 
     public Respawn MonsterRespawn; //관리할 몬스터
-    public Respawn PlayerRespawn; //플레이어
+    public PlayerRespawn PlayerRespawn; //플레이어
 
     public void FixedUpdate()
     {

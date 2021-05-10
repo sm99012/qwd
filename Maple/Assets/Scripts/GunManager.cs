@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GunManager : MonoBehaviour
 {
-    public Respawn PlayerRespawn;
+    public PlayerRespawn PlayerRespawn;
     public GameObject Weapon_Gun;
 
     void Start()
