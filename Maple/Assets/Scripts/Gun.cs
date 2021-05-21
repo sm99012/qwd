@@ -10,7 +10,6 @@ public class Gun : MonoBehaviour
     public GameObject Bullet; //Gun.gameObject 가 사용할 총알. PlayerEquip에서 가져오자
     public string Name; //이 스크립트를 필요로하는 총의 이름
 
-    public string User_Name;
     public string Bullet_Name;
 
     public int GunDamage; //총 자체 공격력.
@@ -27,7 +26,7 @@ public class Gun : MonoBehaviour
     public bool isReload; //true : 장전중
     public bool isUse; //플레이어가 총을 사용하지않을때는 장전할수 없다
                        //true 일때만 사용가능.
-
+    public Vector3 CorrectionValue; //총알이 발사되는 부분 보정
     void Start()
     {
         this.gameObject.SetActive(false);
@@ -35,7 +34,6 @@ public class Gun : MonoBehaviour
         isUse = false;
         if (User != null)
         {
-            User_Name = User.name; //리스폰시 Player(Clone) 라고 되기때문에 초기이름으로한다.
             isReload = false;
             ShotCount = 0;
         }
@@ -46,7 +44,7 @@ public class Gun : MonoBehaviour
     {
         UseState();
 
-        if (isUse == true) //스탑코루틴..
+        if (isUse == true)
         {
             this.gameObject.SetActive(true);
         }
@@ -54,17 +52,13 @@ public class Gun : MonoBehaviour
         {
             this.gameObject.SetActive(false);
         }
-    }
 
-    public void FixedUpdate()
-    {
-        if (User != null)
+        if (User != null && isUse == true)
         {
             PlayerEquip e = User.gameObject.GetComponent<PlayerEquip>();
             this.Bullet = e.Bullet;
             Bullet_Name = Bullet.name; //총알발사할때 프리팹으로 총알을 불러오기위해
         }
-       
     }
 
     public void Shot()
@@ -108,9 +102,9 @@ public class Gun : MonoBehaviour
         GameObject PrefabBullet = Resources.Load("Prefabs/" + Bullet_Name) as GameObject;
         GameObject FireBullet = Instantiate(PrefabBullet);
         FireBullet.transform.position = this.transform.position;
-        FireBullet.transform.position += new Vector3(0, 0.01f, 0);
+        FireBullet.transform.position += CorrectionValue;
         Rigidbody2D r = FireBullet.GetComponent<Rigidbody2D>();
-        r.AddForce(vDir * ShotSpeed * Time.deltaTime);
+        r.AddForce(vDir * ShotSpeed);
         Bullet b = FireBullet.gameObject.GetComponent<Bullet>();
         b.Dist = this.Dist;
         PlayerStatus p = User.GetComponent<PlayerStatus>();

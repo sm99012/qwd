@@ -11,6 +11,12 @@ TagManager:
   - P_Wall
   - Ladder
   - Bottom to Ladder
+  - SwordEffect
+  - SwordSkill
+  - Coin
+  - Item3
+  - Item2
+  - Item1
   layers:
   - Default
   - TransparentFX
@@ -25,7 +31,7 @@ TagManager:
   - Wall
   - P_Wall
   - House
-  - 
+  - Item
   - 
   - 
   - 

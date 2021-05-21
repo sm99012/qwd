@@ -24,7 +24,7 @@ public class Cam : MonoBehaviour
         if (Dist > fDist)
         {
             this.transform.position += vDir * Speed * Time.deltaTime;
-            this.transform.position = new Vector3(transform.position.x + 0.03f, transform.position.y + 0.02f, -5);
+            this.transform.position = new Vector3(transform.position.x, transform.position.y + 0.01f, -5);
         }
     }
 }

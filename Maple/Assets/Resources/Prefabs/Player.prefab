@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: e78829b58c268c7488b604899c9d0ce9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,10 +99,9 @@ MonoBehaviour:
   User: {fileID: 0}
   Bullet: {fileID: 0}
   Name: K5
-  User_Name: 
   Bullet_Name: 
   GunDamage: 5
-  ShotSpeed: 3000
+  ShotSpeed: 100
   HaveBullet: 36
   Count: 12
   ShotCount: 0
@@ -111,7 +110,8 @@ MonoBehaviour:
   Dist: 2
   isShot: 0
   isReload: 0
-  isUse: 0
+  isUse: 1
+  CorrectionValue: {x: 0, y: 0.02, z: 0}
 --- !u!114 &1588281575991651654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +119,134 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3339065836355358849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd6dab2560e444b805ec28e7345e9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPower: 0
+  PowerTime: 0
+--- !u!1 &3500766209044239820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4765466337150567217}
+  - component: {fileID: 1098867376688015760}
+  - component: {fileID: 6893680398624635330}
+  - component: {fileID: 8812334769255276872}
+  m_Layer: 0
+  m_Name: sword2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4765466337150567217
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3500766209044239820}
+  m_LocalRotation: {x: 0, y: 0, z: -0.8191521, w: 0.57357645}
+  m_LocalPosition: {x: 0.02, y: -0.142, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4010173573952779392}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -110}
+--- !u!212 &1098867376688015760
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3500766209044239820}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 11
+  m_Sprite: {fileID: 21300000, guid: 0baecd16c9bc4214cb401ef4dc3d04c4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.16, y: 0.32}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &6893680398624635330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3500766209044239820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaae2a5e8f69372468933c7c0d81a83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SwordCode: 2
+  User: {fileID: 0}
+  S_Effect1: {fileID: 7500485697599906738, guid: 54cefd0c6f94c8a4cabb5c80caee8efb,
+    type: 3}
+  S_Effect2: {fileID: 7416976328121145622, guid: ca4e4676c6171834bbe5f261e5011a08,
+    type: 3}
+  S_Skill_Effect3: {fileID: 6951508415619356685, guid: aad336b214e866a449a2c2c1e106d254,
+    type: 3}
+  Name: "\uB0A1\uC740\uAC80"
+  SwordEffect_Name: 
+  SwordDamage: 4
+  SwordSpeed: 100
+  SwordTerm: 0.5
+  Dist: 0.1
+  isBrandish: 0
+  isLongBrandish: 0
+  isContinuingBrandish: 0
+  isUse: 0
+  CorrectionValue: {x: 0, y: 0, z: 0}
+--- !u!114 &8812334769255276872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3500766209044239820}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1fd6dab2560e444b805ec28e7345e9d, type: 3}
@@ -197,7 +325,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: ed7b7ce5d72933a4d88635c089cc4fc8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -225,10 +353,9 @@ MonoBehaviour:
   User: {fileID: 0}
   Bullet: {fileID: 0}
   Name: K3
-  User_Name: 
   Bullet_Name: 
   GunDamage: 3
-  ShotSpeed: 3000
+  ShotSpeed: 100
   HaveBullet: 500
   Count: 30
   ShotCount: 0
@@ -238,6 +365,7 @@ MonoBehaviour:
   isShot: 0
   isReload: 0
   isUse: 0
+  CorrectionValue: {x: 0, y: 0.013, z: 0}
 --- !u!114 &9028856484176593149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,6 +398,8 @@ GameObject:
   - component: {fileID: 4547782977512192108}
   - component: {fileID: 9131834263781025297}
   - component: {fileID: 3305085819832821022}
+  - component: {fileID: 8602425079643048395}
+  - component: {fileID: 837910309908885099}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -285,11 +415,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4010173573952779406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.89, y: 1.11, z: 0}
+  m_LocalPosition: {x: 0.941, y: 1.075, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4010173573157031925}
   - {fileID: 217718437621860203}
+  - {fileID: 6024479891778499391}
+  - {fileID: 4765466337150567217}
+  - {fileID: 5497151375563338825}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -331,7 +464,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: c8a742c1f2ebb43b9afe34a47304c051, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -415,6 +548,7 @@ MonoBehaviour:
   isRemoveVelocity: 0
   isPutKey: 0
   isEnding: 0
+  isUseSkill: 0
   Speed: 1
   JumpPower: 120
   JumpCount: 2
@@ -441,6 +575,7 @@ MonoBehaviour:
   STR: 5
   T_STR: 0
   DEFENCE: 1
+  Speed: 1
   PowerTime: 1.5
   isPower: 0
   idx: 0
@@ -470,9 +605,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665d5a9881ac8a94686125c87cd5bdf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon_Gun: {fileID: 3339065836355358849}
+  GUIManager: {fileID: 0}
+  Weapon_Gun: {fileID: 0}
   Bullet: {fileID: 4451313923239515213, guid: fbc568674ec3b744f88ab29a37b91610, type: 3}
-  Weapon_Knife: {fileID: 0}
+  Weapon_Sword: {fileID: 7749685497287139612}
   string_Weapon: 
 --- !u!114 &9131834263781025297
 MonoBehaviour:
@@ -499,3 +635,341 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+--- !u!114 &8602425079643048395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010173573952779406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff76995f70f71d4692829b1333ecf2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUIManager: {fileID: 0}
+  I_Gold: 0
+  Slota:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Slota_Count: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  Slotb:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Slotb_Count: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  Slotc:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 5670565369872926745, guid: 4cdc7c9857f80cb4c8eca459c13b06ac, type: 3}
+  Slotc_Count: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000
+  isfora: 0
+  isforb: 0
+  isforc: 0
+--- !u!114 &837910309908885099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010173573952779406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecd2e682b6a0b6b4d861ccafbb5a59fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerStatus: {fileID: 0}
+  GetItem: {fileID: 0}
+--- !u!1 &7749685497287139612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6024479891778499391}
+  - component: {fileID: 7582783859814935172}
+  - component: {fileID: 1923945454186522032}
+  - component: {fileID: 5046456394252163794}
+  m_Layer: 0
+  m_Name: sword1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6024479891778499391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7749685497287139612}
+  m_LocalRotation: {x: 0, y: 0, z: -0.8191521, w: 0.57357645}
+  m_LocalPosition: {x: 0.013, y: -0.133, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4010173573952779392}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -110}
+--- !u!212 &7582783859814935172
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7749685497287139612}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 11
+  m_Sprite: {fileID: 21300000, guid: eff601015172b6741b3746cdcca405b4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.16, y: 0.32}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &1923945454186522032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7749685497287139612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaae2a5e8f69372468933c7c0d81a83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SwordCode: 1
+  User: {fileID: 0}
+  S_Effect1: {fileID: 7500485697599906738, guid: 54cefd0c6f94c8a4cabb5c80caee8efb,
+    type: 3}
+  S_Effect2: {fileID: 7416976328121145622, guid: ca4e4676c6171834bbe5f261e5011a08,
+    type: 3}
+  S_Skill_Effect3: {fileID: 6951508415619356685, guid: aad336b214e866a449a2c2c1e106d254,
+    type: 3}
+  Name: "\uD6C8\uB828\uC6A9\uAC80"
+  SwordEffect_Name: 
+  SwordDamage: 5
+  SwordSpeed: 100
+  SwordTerm: 0.5
+  Dist: 0.1
+  isBrandish: 0
+  isLongBrandish: 0
+  isContinuingBrandish: 0
+  isUse: 0
+  CorrectionValue: {x: 0, y: 0, z: 0}
+--- !u!114 &5046456394252163794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7749685497287139612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd6dab2560e444b805ec28e7345e9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPower: 0
+  PowerTime: 0
+--- !u!1 &7908728454843718345
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5497151375563338825}
+  - component: {fileID: 8048657918366462230}
+  - component: {fileID: 8557280285201510610}
+  - component: {fileID: 6760150886498993359}
+  m_Layer: 0
+  m_Name: sword8
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5497151375563338825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7908728454843718345}
+  m_LocalRotation: {x: 0, y: 0, z: -0.8191521, w: 0.57357645}
+  m_LocalPosition: {x: 0.095, y: -0.145, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4010173573952779392}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -110}
+--- !u!212 &8048657918366462230
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7908728454843718345}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 11
+  m_Sprite: {fileID: 21300000, guid: 61aec94c16ac0ed4a97eba96f57524aa, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.32, y: 0.64}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &8557280285201510610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7908728454843718345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaae2a5e8f69372468933c7c0d81a83d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SwordCode: 0
+  User: {fileID: 0}
+  S_Effect1: {fileID: 7500485697599906738, guid: 54cefd0c6f94c8a4cabb5c80caee8efb,
+    type: 3}
+  S_Effect2: {fileID: 7416976328121145622, guid: ca4e4676c6171834bbe5f261e5011a08,
+    type: 3}
+  S_Skill_Effect3: {fileID: 6951508415619356685, guid: aad336b214e866a449a2c2c1e106d254,
+    type: 3}
+  Name: "\uC591\uC0B0\uD615 \uB300\uAC80"
+  SwordEffect_Name: 
+  SwordDamage: 10
+  SwordSpeed: 100
+  SwordTerm: 1
+  Dist: 0.1
+  isBrandish: 0
+  isLongBrandish: 0
+  isContinuingBrandish: 0
+  isUse: 0
+  CorrectionValue: {x: 0, y: 0, z: 0}
+--- !u!114 &6760150886498993359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7908728454843718345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd6dab2560e444b805ec28e7345e9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPower: 0
+  PowerTime: 0

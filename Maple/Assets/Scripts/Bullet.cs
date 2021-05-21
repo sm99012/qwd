@@ -33,11 +33,9 @@ public class Bullet : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D c)
     {
-        if (c.gameObject.tag == "Bottom") //총알이 바닥에 부딪혔을때 땅위에 총알을 떨군다.
+        if (c.gameObject.tag == "Bottom") //총알이 바닥에부딪히면 사라짐
         {
-            Debug.Log("바닥");
-            Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>();
-            r.gravityScale = 1;
+            Destroy(this.gameObject);
         }
     }
 }

@@ -106,11 +106,17 @@ public class RedSnailMove : MonoBehaviour //딱히 공격안하는몹.
         {
             Transform t = this.gameObject.GetComponent<Transform>();
             t.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
+            MonsterStatus MonsterStatus = this.gameObject.GetComponent<MonsterStatus>();
+            MonsterStatus.isRight = true;
+            MonsterStatus.isLeft = false;
         }
         else if (isRight == false && isLeft == true)
         {
             Transform t = this.gameObject.GetComponent<Transform>();
             t.localScale = new Vector3(+0.5f, 0.5f, 0.5f);
+            MonsterStatus MonsterStatus = this.gameObject.GetComponent<MonsterStatus>();
+            MonsterStatus.isRight = false;
+            MonsterStatus.isLeft = true;
         }
     } //오브젝트 방향전환
 

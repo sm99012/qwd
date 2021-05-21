@@ -66,7 +66,8 @@ public class BlueSnailMove : MonoBehaviour //딱히 공격안하는몹.
 
         MonsterStatus m = this.gameObject.GetComponent<MonsterStatus>();
         Player = m.Player;
-        this.AttackedCount = m.AttackedCount; //참조 하는거다
+        this.AttackedCount = m.AttackedCount; //참조 하는거다.
+        if (AttackedCount < 0) AttackedCount = 0;
     }
 
     private void FixedUpdate()
@@ -105,11 +106,17 @@ public class BlueSnailMove : MonoBehaviour //딱히 공격안하는몹.
         {
             Transform t = this.gameObject.GetComponent<Transform>();
             t.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
+            MonsterStatus MonsterStatus = this.gameObject.GetComponent<MonsterStatus>();
+            MonsterStatus.isRight = true;
+            MonsterStatus.isLeft = false;
         }
         else if (isRight == false && isLeft == true)
         {
             Transform t = this.gameObject.GetComponent<Transform>();
             t.localScale = new Vector3(+0.5f, 0.5f, 0.5f);
+            MonsterStatus MonsterStatus = this.gameObject.GetComponent<MonsterStatus>();
+            MonsterStatus.isRight = false;
+            MonsterStatus.isLeft = true;
         }
     } //오브젝트 방향전환
 
@@ -157,26 +164,28 @@ public class BlueSnailMove : MonoBehaviour //딱히 공격안하는몹.
 
     public void AttackMove()
     {
-        Vector3 vTargetPos = Player.gameObject.transform.position;
-        Vector3 vDist = vTargetPos - vConstantPos;
-        float vTargetPosX = vTargetPos.x;
-        float vConstantPosX = vConstantPos.x;
-        Vector3 vDir = vDist.normalized;
-        if (vTargetPosX >= vConstantPosX) //몹 우측이동
+        if (Player)
         {
-            isRight = true;
-            isLeft = false;
-            SetDirection();
-            Move(vDir);
+            Vector3 vTargetPos = Player.gameObject.transform.position;
+            Vector3 vDist = vTargetPos - vConstantPos;
+            float vTargetPosX = vTargetPos.x;
+            float vConstantPosX = vConstantPos.x;
+            Vector3 vDir = vDist.normalized;
+            if (vTargetPosX >= vConstantPosX) //몹 우측이동
+            {
+                isRight = true;
+                isLeft = false;
+                SetDirection();
+                Move(vDir);
+            }
+            else
+            {
+                isRight = false;
+                isLeft = true;
+                SetDirection();
+                Move(vDir);
+            }
         }
-        else
-        {
-            isRight = false;
-            isLeft = true;
-            SetDirection();
-            Move(vDir);
-        }
-
     }
 
     IEnumerator ProcessSetRandomValue()

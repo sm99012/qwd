@@ -17,6 +17,7 @@ public class PlayerMove : MonoBehaviour
     public bool isRemoveVelocity; //n단점프후 얻는 가속도 제거
     public bool isPutKey;
     public bool isEnding;
+    public bool isUseSkill; //true : 움직임 불가
 
     public float Speed;
     public float JumpPower;
@@ -38,15 +39,37 @@ public class PlayerMove : MonoBehaviour
         isKey = false;
 
         isEnding = false;
+        isUseSkill = false;
     }
 
     void Update()
     {
+        PlayerStatus PlayerStatus = this.gameObject.GetComponent<PlayerStatus>();
+        this.Speed = PlayerStatus.Speed;
         nJump();
         if (Speed < 0)
         {
             Speed = 0.1f;
         }
+
+        Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>(); //가속도제한
+        if (r.velocity.x > 1.5f)
+        {
+            r.velocity = new Vector2(1.5f, r.velocity.y);
+        }
+        if (r.velocity.y > 2f)
+        {
+            r.velocity = new Vector2(r.velocity.x, 2);
+        }
+        if (r.velocity.x < -1.5f)
+        {
+            r.velocity = new Vector2(-1.5f, r.velocity.y);
+        }
+        if (r.velocity.y < -2f)
+        {
+            r.velocity = new Vector2(r.velocity.x, -2f);
+        }
+        //Debug.Log("X" + r.velocity.x + "/" + "Y" + r.velocity.y);
     }
 
     public void FixedUpdate()
@@ -93,13 +116,27 @@ public class PlayerMove : MonoBehaviour
         {
             isGround = true;
             isKey = false;
-            isMove = true;
+            if (isUseSkill == false)
+            {
+                isMove = true;
+            }
+            else
+            {
+                isMove = false;
+            }
         }
         if (c.gameObject.tag == "Bottom to Ladder")
         {
             isGround = true;
             isKey = false;
-            isMove = true;
+            if (isUseSkill == false)
+            {
+                isMove = true;
+            }
+            else
+            {
+                isMove = false;
+            }
             if (Input.GetKey(KeyCode.DownArrow))
             {
                 this.gameObject.transform.position -= new Vector3(0, 0.075f);
@@ -162,7 +199,6 @@ public class PlayerMove : MonoBehaviour
     {
         if (c.gameObject.tag == "Ladder" && isLadderStay == true) //+ 
         {
-            Debug.Log("??");
             //isGround = true;
             isLadder = false;
             isLadderStay = false;
@@ -207,16 +243,16 @@ public class PlayerMove : MonoBehaviour
             t.localScale = new Vector3(-1, 1, 1);
         }
 
-        if (Input.GetKey(KeyCode.LeftAlt) == true) //n단점프때문에 추가
-        {
-            isGetKeyLeftAlt = true;
-            isPutKey = true;
-        }
-        else
-        {
-            isGetKeyLeftAlt = false;
-            isPutKey = false;
-        }
+        //if (Input.GetKey(KeyCode.LeftAlt) == true) //n단점프때문에 추가
+        //{
+        //    isGetKeyLeftAlt = true;
+        //    isPutKey = true;
+        //}
+        //else
+        //{
+        //    isGetKeyLeftAlt = false;
+        //    isPutKey = false;
+        //}
         if (isLadder == false && isMove == true)//평시
         {
             if (Input.GetKey(KeyCode.RightArrow)) //오른쪽이동
